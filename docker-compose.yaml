@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  redpanda:
+    image: vectorized/redpanda:latest
+    command:
+      - start
+      - --smp 1
+      - --memory 1G
+      - --reserve-memory 0M
+      - --overprovisioned
+      - --node-id 0
+      - --check=false
+      - --kafka-addr 0.0.0.0:9092
+      - --advertise-kafka-addr 127.0.0.1:9092
+      - --rpc-addr 0.0.0.0:33145
+      - --advertise-rpc-addr redpanda-1:33145
+    ports:
+      - "9092:9092"
+    volumes:
+      - redpanda-experiments:/var/lib/redpanda/data
+volumes:
+  redpanda-experiments:
+    driver: local
